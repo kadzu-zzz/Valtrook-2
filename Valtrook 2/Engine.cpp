@@ -1,6 +1,8 @@
 #include "Engine.h"
 
 #include "Logger.h"
+#include "AssetDatabase.h"
+#include "GraphicsManager.h"
 
 #include <string>
 
@@ -15,10 +17,19 @@ Engine::Engine() : bRestart(nullptr), bRunning(false)
 {
 	Engine::engine = this;
 	logger = new Logger();
+	assets = new AssetDatabase();
+	assets->EarlyLoad();
+
+	graphics_manager = new GraphicsManager(assets->config.graphics_mode.data.api);
+
+
+	logger->outputLog();
 }
 
 Engine::~Engine()
 {
+	delete assets;
+	delete graphics_manager;
 	delete logger;
 }
 
@@ -26,11 +37,14 @@ Logger* Engine::getLogger() {
 	return logger;
 }
 
-void Engine::intialise()
+AssetDatabase* Engine::getAssets()
 {
+	return assets;
+}
 
-
-	logger->outputLog();
+GraphicsManager* Engine::getGraphicsManager()
+{
+	return graphics_manager;
 }
 
 void Engine::run(bool* bRestart)
@@ -55,12 +69,8 @@ void Engine::stop()
 void Engine::engineLoop()
 {
 	while (bRunning) {
-
-		stop();
-
 		logger->logMessage(SEVERE, "AAA");
-		logger->logMessage(SEVERE, "AAA");
-		logger->logMessage(SEVERE, "AAA");
+		graphics_manager->loop();
 
 		logger->outputLog();
 	}
@@ -69,6 +79,6 @@ void Engine::engineLoop()
 
 void Engine::cleanup()
 {
-
 	logger->outputLog();
+	assets->Save();
 }

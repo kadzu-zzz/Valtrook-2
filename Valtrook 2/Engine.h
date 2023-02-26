@@ -1,6 +1,8 @@
 #pragma once
 
 class Logger;
+class AssetDatabase;
+class GraphicsManager;
 
 class Engine
 {
@@ -10,16 +12,19 @@ public:
 	Engine();
 	~Engine();
 
-	void intialise();
 	void run(bool* bRestart);
 	void stop();
 
 	Logger* getLogger();
+	AssetDatabase* getAssets();
+	GraphicsManager* getGraphicsManager();
 private:
 	bool* bRestart;
 	bool bRunning;
 
 	Logger* logger;
+	AssetDatabase* assets;
+	GraphicsManager* graphics_manager;
 
 	void engineLoop();
 	void cleanup();

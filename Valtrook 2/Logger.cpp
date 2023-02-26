@@ -3,6 +3,7 @@
 #include <iostream>
 
 Logger::Logger() : buffer(32) {
+	buffer.clear();
 }
 
 Logger::~Logger() {
