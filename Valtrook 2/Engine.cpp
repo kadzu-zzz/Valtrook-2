@@ -3,6 +3,7 @@
 #include "Logger.h"
 #include "AssetDatabase.h"
 #include "GraphicsManager.h"
+#include "NamedSerializable.h"
 
 #include <string>
 
@@ -20,7 +21,7 @@ Engine::Engine() : bRestart(nullptr), bRunning(false)
 	assets = new AssetDatabase();
 	assets->EarlyLoad();
 
-	graphics_manager = new GraphicsManager(assets->config.graphics_mode.data.api);
+	graphics_manager = new GraphicsManager(assets->config.graphics_mode.getValue());
 
 
 	logger->outputLog();

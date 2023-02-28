@@ -29,6 +29,10 @@ std::shared_ptr<IWindow> WindowManager::GetOrCreateWindow(WindowData data)
 			windows[data.alias] = std::make_shared<VulkanWindow>(data);
 		break;
 		case GraphicsAPI::OpenGL:
+
+		break;
+		case GraphicsAPI::DirectX:
+
 		break;
 	}
 

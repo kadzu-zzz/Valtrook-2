@@ -5,19 +5,17 @@
 
 #include "WindowData.h"
 #include "WindowManager.h"
+#include "Engine.h"
+#include "AssetDatabase.h"
+#include "EngineConfig.h"
+#include "Logger.h"
+
 
 GraphicsManager::GraphicsManager(GraphicsAPI api) : windowManager(api)
 {
     glfwInit();
 
-    WindowData defaultData;
-    defaultData.alias = "main";
-    defaultData.title = "main";
-    defaultData.height = 800;
-    defaultData.width = 600;
-    defaultData.fullscreen_target = NULL;
-
-    windowManager.GetOrCreateWindow(defaultData);
+    windowManager.GetOrCreateWindow(Engine::engine->getAssets()->config.default_window_data.getValue());
 }
 
 GraphicsManager::~GraphicsManager()

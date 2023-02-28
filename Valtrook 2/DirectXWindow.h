@@ -3,18 +3,16 @@
 #include "IWindow.h"
 #include "WindowData.h"
 
-struct GLFWwindow;
-
-class VulkanWindow : public IWindow
+class DirectXWindow : public IWindow
 {
 private:
-	GLFWwindow* window;
+	//GLFWwindow* window;
 
 	WindowData data;
 
 public:
-	VulkanWindow(WindowData data);
-	~VulkanWindow();
+	DirectXWindow(WindowData data);
+	~DirectXWindow();
 
 	WindowData* getData();
 

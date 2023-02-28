@@ -10,8 +10,16 @@
 
 VulkanWindow::VulkanWindow(WindowData data) : data(data)
 {
+    GLFWmonitor* targetMonitor = NULL;
+    if (data.fullscreen_target > -1) {
+        GLFWmonitor** monitors = glfwGetMonitors(&data.fullscreen_target);
+        if (monitors != NULL) {
+            targetMonitor = monitors[data.fullscreen_target];
+        }
+    }
+
     glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
-    window = glfwCreateWindow(data.width, data.height, data.title.c_str(), data.fullscreen_target, nullptr);
+    window = glfwCreateWindow(data.width, data.height, data.title.c_str(), targetMonitor, nullptr);
 
     uint32_t extensionCount = 0;
     vkEnumerateInstanceExtensionProperties(nullptr, &extensionCount, nullptr);
@@ -64,10 +72,10 @@ std::string VulkanWindow::getTitle()
 
 bool VulkanWindow::hasFullscreenTarget()
 {
-    return data.fullscreen_target != NULL;
+    return data.fullscreen_target > -1;
 }
 
-GLFWmonitor* VulkanWindow::getFullscreenTarget()
+int VulkanWindow::getFullscreenTarget()
 {
     return data.fullscreen_target;
 }

@@ -37,6 +37,12 @@
     <Filter Include="Source Files\Utility">
       <UniqueIdentifier>{39222387-b226-4912-963c-c6ffff2e6cdc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Renderer\DirectX">
+      <UniqueIdentifier>{b2ed4c7c-14ef-46b9-a323-5209a8a92413}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Renderer\DirectX">
+      <UniqueIdentifier>{78b676f7-9695-4f06-8e64-cb1dde7e1ae8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EntryPoint.cpp">
@@ -69,6 +75,9 @@
     <ClCompile Include="VulkanWindow.cpp">
       <Filter>Source Files\Renderer\Vulkan</Filter>
     </ClCompile>
+    <ClCompile Include="DirectXWindow.cpp">
+      <Filter>Source Files\Renderer\DirectX</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine.h">
@@ -98,10 +107,7 @@
     <ClInclude Include="EngineConfig.h">
       <Filter>Header Files\Utility</Filter>
     </ClInclude>
-    <ClInclude Include="ConfigData.h">
-      <Filter>Header Files\Utility</Filter>
-    </ClInclude>
-    <ClInclude Include="IConfigSerializable.h">
+    <ClInclude Include="NamedSerializable.h">
       <Filter>Header Files\Utility</Filter>
     </ClInclude>
     <ClInclude Include="GraphicsManager.h">
@@ -115,6 +121,12 @@
     </ClInclude>
     <ClInclude Include="WindowData.h">
       <Filter>Header Files\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="DirectXWindow.h">
+      <Filter>Header Files\Renderer\DirectX</Filter>
+    </ClInclude>
+    <ClInclude Include="StringUtil.h">
+      <Filter>Header Files\Utility</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

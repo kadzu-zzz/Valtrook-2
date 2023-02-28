@@ -3,7 +3,6 @@
 #include <string>
 
 struct WindowData;
-struct GLFWmonitor;
 
 class IWindow
 {
@@ -18,5 +17,5 @@ public:
 	virtual std::string getAlias() = 0;
 	virtual std::string getTitle() = 0;
 	virtual bool hasFullscreenTarget() = 0;
-	virtual GLFWmonitor* getFullscreenTarget() = 0;
+	virtual int getFullscreenTarget() = 0;
 };

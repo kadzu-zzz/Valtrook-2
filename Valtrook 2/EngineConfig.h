@@ -1,17 +1,22 @@
 #pragma once
 
-#include "Config.h"
-
-#include "ConfigData.h"
+#include "NamedSerializable.h"
 #include "GraphicsAPI.h"
-#include <map>
+#include "WindowData.h"
+#include <unordered_map>
+#include <vector>
+
+struct WindowData;
 
 class EngineConfig
 {
+private:
+	NamedSerializableCollection config_options;
 public:
 	EngineConfig();
 
-	ConfigData<GraphicsAPIWrapper> graphics_mode;
+	NamedSerializable<GraphicsAPI> graphics_mode;
+	NamedSerializable<WindowData> default_window_data;
 
 	void Load();
 	void Save();

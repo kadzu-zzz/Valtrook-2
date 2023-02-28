@@ -5,22 +5,19 @@
 #include <sstream>
 #include <string>
 
-EngineConfig::EngineConfig() : graphics_mode("Graphics Mode", GraphicsAPIWrapper(Vulkan))
+EngineConfig::EngineConfig() : graphics_mode("Graphics Mode", Vulkan), default_window_data("Default Window", WindowData())
 {
+	config_options.add(&graphics_mode);
+	config_options.add(&default_window_data);
 }
 
 void EngineConfig::Load()
 {
 	FileReader reader("", "engine.conf");
 	if (reader.File.good()) {
-		std::string start = "";
 		std::string line = "";
 		while (std::getline(reader.File, line)) {
-			start = line.substr(0, line.find_last_of("|"));
-
-			if (graphics_mode.config_name == start) {
-				graphics_mode.deserailize(line);
-			} 
+			config_options.read(line);
 		}
 	}
 }
@@ -29,6 +26,6 @@ void EngineConfig::Save()
 {
 	FileWriter writer("", "engine.conf");
 	if (writer.File.good()) {
-		writer.File << graphics_mode.serialize();
+		config_options.write(&writer);
 	}
 }

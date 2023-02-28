@@ -1,35 +1,33 @@
 #pragma once
 
-#include "Engine.h"
-#include "IConfigSerializable.h"
-#include "Logger.h"
+#include "NamedSerializable.h"
 
 enum GraphicsAPI {
 	Vulkan,
-	OpenGL
+	OpenGL,
+	DirectX
 };
 
-class GraphicsAPIWrapper : public IConfigSerializable {
-public:
-	GraphicsAPI api;
-
-	GraphicsAPIWrapper(GraphicsAPI api) : api(api) {}
-
-	void deserialize(std::string input) {
+template<>
+struct NamedSerializable<GraphicsAPI>::TrueSerialize {
+	static GraphicsAPI deserialize(std::string input) {
 		if (input == "Vulkan")
-			api = Vulkan;
+			return GraphicsAPI::Vulkan;
 		else if (input == "OpenGL")
-			api = OpenGL;
-		else
-			Engine::engine->getLogger()->logMessage(SEVERE, "Invalid GraphicsAPI Selected.");
+			return GraphicsAPI::OpenGL;
+		else if (input == "DirectX")
+			return GraphicsAPI::DirectX;
+		return GraphicsAPI::OpenGL;
 	}
 
-	std::string serialize() {
-		switch (api) {
+	static std::string serialize(GraphicsAPI input) {
+		switch (input) {
 		case Vulkan:
 			return "Vulkan";
 		case OpenGL:
 			return "OpenGL";
+		case DirectX:
+			return "DirectX";
 		}
 		return "InvalidGraphicsAPI";
 	}

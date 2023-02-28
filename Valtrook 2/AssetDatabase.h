@@ -2,7 +2,6 @@
 
 #include "EngineConfig.h"
 
-
 class AssetDatabase
 {
 public:
