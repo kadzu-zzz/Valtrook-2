@@ -2,6 +2,7 @@
 
 #include "Logger.h"
 #include "AssetDatabase.h"
+#include "InputManager.h"
 #include "GraphicsManager.h"
 #include "NamedSerializable.h"
 
@@ -19,6 +20,7 @@ Engine::Engine() : bRestart(nullptr), bRunning(false)
 	Engine::engine = this;
 	logger = new Logger();
 	assets = new AssetDatabase();
+	input_manager = new InputManager();
 	assets->EarlyLoad();
 
 	graphics_manager = new GraphicsManager(assets->config.graphics_mode.getValue());
@@ -46,6 +48,11 @@ AssetDatabase* Engine::getAssets()
 GraphicsManager* Engine::getGraphicsManager()
 {
 	return graphics_manager;
+}
+
+InputManager* Engine::getInputManager()
+{
+	return input_manager;
 }
 
 void Engine::run(bool* bRestart)

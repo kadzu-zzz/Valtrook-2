@@ -4,8 +4,7 @@
 
 enum GraphicsAPI {
 	Vulkan,
-	OpenGL,
-	DirectX
+	OpenGL
 };
 
 template<>
@@ -15,8 +14,6 @@ struct NamedSerializable<GraphicsAPI>::TrueSerialize {
 			return GraphicsAPI::Vulkan;
 		else if (input == "OpenGL")
 			return GraphicsAPI::OpenGL;
-		else if (input == "DirectX")
-			return GraphicsAPI::DirectX;
 		return GraphicsAPI::OpenGL;
 	}
 
@@ -26,8 +23,6 @@ struct NamedSerializable<GraphicsAPI>::TrueSerialize {
 			return "Vulkan";
 		case OpenGL:
 			return "OpenGL";
-		case DirectX:
-			return "DirectX";
 		}
 		return "InvalidGraphicsAPI";
 	}

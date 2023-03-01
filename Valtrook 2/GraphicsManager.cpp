@@ -11,16 +11,31 @@
 #include "Logger.h"
 
 
-GraphicsManager::GraphicsManager(GraphicsAPI api) : windowManager(api)
+GraphicsManager::GraphicsManager(GraphicsAPI api) : api(api), windowManager(api)
 {
-    glfwInit();
-
-    windowManager.GetOrCreateWindow(Engine::engine->getAssets()->config.default_window_data.getValue());
+    switch (api) {
+    case OpenGL:
+    case Vulkan:
+        glfwInit();
+        glfwSetErrorCallback(error_callback);
+        break;
+    }
 }
+
+void error_callback(int error, const char* description)
+{
+    Engine::engine->getLogger()->logMessage(ERROR, description);
+}
+
 
 GraphicsManager::~GraphicsManager()
 {
-    glfwTerminate();
+    switch (api) {
+    case OpenGL:
+    case Vulkan:
+        glfwTerminate();
+        break;
+    }
 }
 
 WindowManager* GraphicsManager::getWindowManager()
@@ -34,5 +49,5 @@ void GraphicsManager::loop()
         Engine::engine->getLogger()->logMessage(INFO, "No Windows Open");
         Engine::engine->stop();
     }
-    glfwPollEvents();
+    windowManager.GetMainWindow()->WindowPoll();
 }

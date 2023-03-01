@@ -8,6 +8,7 @@
 class GraphicsManager
 {
 private:
+	GraphicsAPI api;
 	WindowManager windowManager;
 public:
 	GraphicsManager(GraphicsAPI api);

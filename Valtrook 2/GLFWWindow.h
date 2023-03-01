@@ -5,7 +5,7 @@
 
 struct GLFWwindow;
 
-class VulkanWindow : public IWindow
+class GLFWWindow : public IWindow
 {
 private:
 	GLFWwindow* window;
@@ -13,8 +13,8 @@ private:
 	WindowData data;
 
 public:
-	VulkanWindow(WindowData data);
-	~VulkanWindow();
+	GLFWWindow(WindowData data);
+	~GLFWWindow();
 
 	WindowData* getData();
 
@@ -27,5 +27,7 @@ public:
 	std::string getTitle();
 	bool hasFullscreenTarget();
 	int getFullscreenTarget();
+
+	void WindowPoll();
 };
 

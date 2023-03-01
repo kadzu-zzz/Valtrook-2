@@ -79,7 +79,6 @@ public:
 	}
 };
 
-
 template<>
 struct NamedSerializable<std::string>::TrueSerialize {
 	static std::string deserialize(std::string input) {	return input; }

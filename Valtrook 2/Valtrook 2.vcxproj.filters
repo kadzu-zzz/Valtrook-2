@@ -37,11 +37,11 @@
     <Filter Include="Source Files\Utility">
       <UniqueIdentifier>{39222387-b226-4912-963c-c6ffff2e6cdc}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Renderer\DirectX">
-      <UniqueIdentifier>{b2ed4c7c-14ef-46b9-a323-5209a8a92413}</UniqueIdentifier>
+    <Filter Include="Header Files\Input">
+      <UniqueIdentifier>{082bd91a-bd21-4de6-ba68-500b5321b62c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Renderer\DirectX">
-      <UniqueIdentifier>{78b676f7-9695-4f06-8e64-cb1dde7e1ae8}</UniqueIdentifier>
+    <Filter Include="Source Files\Input">
+      <UniqueIdentifier>{43f8c6f4-beec-4e6d-8a89-e09db772f7df}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -72,11 +72,11 @@
     <ClCompile Include="GraphicsManager.cpp">
       <Filter>Source Files\Renderer</Filter>
     </ClCompile>
-    <ClCompile Include="VulkanWindow.cpp">
-      <Filter>Source Files\Renderer\Vulkan</Filter>
+    <ClCompile Include="GLFWWindow.cpp">
+      <Filter>Source Files\Renderer</Filter>
     </ClCompile>
-    <ClCompile Include="DirectXWindow.cpp">
-      <Filter>Source Files\Renderer\DirectX</Filter>
+    <ClCompile Include="InputManager.cpp">
+      <Filter>Source Files\Input</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -113,20 +113,20 @@
     <ClInclude Include="GraphicsManager.h">
       <Filter>Header Files\Renderer</Filter>
     </ClInclude>
-    <ClInclude Include="VulkanWindow.h">
-      <Filter>Header Files\Renderer\Vulkan</Filter>
-    </ClInclude>
     <ClInclude Include="IWindow.h">
       <Filter>Header Files\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="WindowData.h">
       <Filter>Header Files\Renderer</Filter>
     </ClInclude>
-    <ClInclude Include="DirectXWindow.h">
-      <Filter>Header Files\Renderer\DirectX</Filter>
-    </ClInclude>
     <ClInclude Include="StringUtil.h">
       <Filter>Header Files\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="GLFWWindow.h">
+      <Filter>Header Files\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="InputManager.h">
+      <Filter>Header Files\Input</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

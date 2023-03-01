@@ -16,6 +16,9 @@ public:
 	EngineConfig();
 
 	NamedSerializable<GraphicsAPI> graphics_mode;
+	NamedSerializable<int> gl_major_version;
+	NamedSerializable<int> gl_minor_version;
+
 	NamedSerializable<WindowData> default_window_data;
 
 	void Load();

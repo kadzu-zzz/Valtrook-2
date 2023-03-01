@@ -1,14 +1,23 @@
 #include "WindowManager.h"
 
-#include "VulkanWindow.h"
+#include "GLFWWindow.h"
+#include "Engine.h"
+#include "AssetDatabase.h"
+#include "EngineConfig.h"
 
 WindowManager::WindowManager(GraphicsAPI api) : api(api), windows()
 {
+	mainWindow = GetOrCreateWindow(Engine::engine->getAssets()->config.default_window_data.getValue());
 }
 
 WindowManager::~WindowManager()
-{
+{	
 	windows.clear();
+}
+
+std::shared_ptr<IWindow> WindowManager::GetMainWindow()
+{
+	return mainWindow;
 }
 
 std::shared_ptr<IWindow> WindowManager::GetWindow(std::string windowAlias)
@@ -26,13 +35,8 @@ std::shared_ptr<IWindow> WindowManager::GetOrCreateWindow(WindowData data)
 
 	switch (api) {
 		case GraphicsAPI::Vulkan:
-			windows[data.alias] = std::make_shared<VulkanWindow>(data);
-		break;
 		case GraphicsAPI::OpenGL:
-
-		break;
-		case GraphicsAPI::DirectX:
-
+			windows[data.alias] = std::make_shared<GLFWWindow>(data);
 		break;
 	}
 

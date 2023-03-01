@@ -3,6 +3,7 @@
 class Logger;
 class AssetDatabase;
 class GraphicsManager;
+class InputManager;
 
 class Engine
 {
@@ -18,6 +19,7 @@ public:
 	Logger* getLogger();
 	AssetDatabase* getAssets();
 	GraphicsManager* getGraphicsManager();
+	InputManager* getInputManager();
 private:
 	bool* bRestart;
 	bool bRunning;
@@ -25,6 +27,7 @@ private:
 	Logger* logger;
 	AssetDatabase* assets;
 	GraphicsManager* graphics_manager;
+	InputManager* input_manager;
 
 	void engineLoop();
 	void cleanup();
