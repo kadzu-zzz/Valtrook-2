@@ -5,7 +5,7 @@
 #include <sstream>
 #include <string>
 
-EngineConfig::EngineConfig() : graphics_mode("Graphics Mode", Vulkan), default_window_data("Default Window", WindowData()), gl_major_version("gl_major", 4), gl_minor_version("gl_minor", 5)
+EngineConfig::EngineConfig() : graphics_mode("Graphics Mode", Vulkan), default_window_data("Default Window", WindowData()), gl_major_version("gl_major", 3), gl_minor_version("gl_minor", 3)
 {
 	config_options.add(&graphics_mode);
 	config_options.add(&gl_major_version);

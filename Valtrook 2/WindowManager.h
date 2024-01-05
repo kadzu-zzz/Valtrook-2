@@ -2,7 +2,6 @@
 
 #include <memory>
 #include <unordered_map>
-#include <unordered_set>
 #include <string>
 
 #include "IWindow.h"
@@ -17,10 +16,12 @@ protected:
 	GraphicsAPI api;
 	std::shared_ptr<IWindow> mainWindow;
 	std::unordered_map<std::string, std::shared_ptr<IWindow>> windows;
-	std::unordered_set<std::string> windows_to_close;
+	std::vector<std::string> windows_to_close;
 public:
 	WindowManager(GraphicsAPI api);
 	~WindowManager();
+
+	void Initialize();
 
 	std::shared_ptr<IWindow> GetMainWindow();
 	std::shared_ptr<IWindow> GetWindow(std::string windowAlias);

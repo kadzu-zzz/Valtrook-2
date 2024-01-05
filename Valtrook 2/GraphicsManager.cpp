@@ -10,6 +10,7 @@
 #include "EngineConfig.h"
 #include "Logger.h"
 
+void error_callback(int error, const char* description);
 
 GraphicsManager::GraphicsManager(GraphicsAPI api) : api(api), windowManager(api)
 {
@@ -20,6 +21,8 @@ GraphicsManager::GraphicsManager(GraphicsAPI api) : api(api), windowManager(api)
         glfwSetErrorCallback(error_callback);
         break;
     }
+
+    windowManager.Initialize();
 }
 
 void error_callback(int error, const char* description)
@@ -45,9 +48,11 @@ WindowManager* GraphicsManager::getWindowManager()
 
 void GraphicsManager::loop()
 {
-    if (!windowManager.loop()) {
+    if (windowManager.loop() || windowManager.GetMainWindow() == nullptr) {
         Engine::engine->getLogger()->logMessage(INFO, "No Windows Open");
         Engine::engine->stop();
     }
     windowManager.GetMainWindow()->WindowPoll();
+    if(renderingEngine.IsReady())
+        renderingEngine.Display();
 }

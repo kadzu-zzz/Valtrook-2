@@ -5,14 +5,18 @@
 #include "AssetDatabase.h"
 #include "EngineConfig.h"
 
-WindowManager::WindowManager(GraphicsAPI api) : api(api), windows()
+WindowManager::WindowManager(GraphicsAPI api) : api(api), windows(), windows_to_close()
 {
-	mainWindow = GetOrCreateWindow(Engine::engine->getAssets()->config.default_window_data.getValue());
 }
 
 WindowManager::~WindowManager()
 {	
 	windows.clear();
+}
+
+void WindowManager::Initialize()
+{
+	mainWindow = GetOrCreateWindow(Engine::engine->getAssets()->config.default_window_data.getValue());
 }
 
 std::shared_ptr<IWindow> WindowManager::GetMainWindow()
@@ -36,7 +40,7 @@ std::shared_ptr<IWindow> WindowManager::GetOrCreateWindow(WindowData data)
 	switch (api) {
 		case GraphicsAPI::Vulkan:
 		case GraphicsAPI::OpenGL:
-			windows[data.alias] = std::make_shared<GLFWWindow>(data);
+			windows.insert(std::make_pair(data.alias, std::make_shared<GLFWWindow>(data)));
 		break;
 	}
 
@@ -45,8 +49,8 @@ std::shared_ptr<IWindow> WindowManager::GetOrCreateWindow(WindowData data)
 
 void WindowManager::CloseWindow(std::string alias)
 {
-	windows_to_close.insert(alias);
-}
+	windows_to_close.push_back(alias);
+}			
 
 void WindowManager::ProcessCloseWindows()
 {
@@ -60,15 +64,13 @@ void WindowManager::ProcessCloseWindows()
 bool WindowManager::loop()
 {
 	if (windows.empty())
-		return false;
+		return true;
 
-	auto close_windows = std::vector<std::string>();
 	for (auto vals : windows) {
 		if (!vals.second->IsValid()) {
-			windows_to_close.insert(vals.first);
+			windows_to_close.push_back(vals.first);
 		}
 	}
 	ProcessCloseWindows();
-
-	return true;
+	return false;
 }

@@ -7,7 +7,7 @@ struct GLFWwindow;
 
 class GLFWWindow : public IWindow
 {
-private:
+protected:
 	GLFWwindow* window;
 
 	WindowData data;

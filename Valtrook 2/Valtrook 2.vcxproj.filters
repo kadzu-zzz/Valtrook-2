@@ -78,6 +78,12 @@
     <ClCompile Include="InputManager.cpp">
       <Filter>Source Files\Input</Filter>
     </ClCompile>
+    <ClCompile Include="RenderingEngine.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine.h">
@@ -127,6 +133,18 @@
     </ClInclude>
     <ClInclude Include="InputManager.h">
       <Filter>Header Files\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderingEngine.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderData.h">
+      <Filter>Header Files\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RootScene.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

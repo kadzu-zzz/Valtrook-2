@@ -4,6 +4,9 @@ class Logger;
 class AssetDatabase;
 class GraphicsManager;
 class InputManager;
+class Scene;
+
+#include <memory>
 
 class Engine
 {
@@ -14,16 +17,18 @@ public:
 	~Engine();
 
 	void run(bool* bRestart);
-	void stop();
+	void stop(bool restart = false); 
 
 	Logger* getLogger();
 	AssetDatabase* getAssets();
 	GraphicsManager* getGraphicsManager();
 	InputManager* getInputManager();
+	std::shared_ptr<Scene> getRootScene();
 private:
 	bool* bRestart;
 	bool bRunning;
 
+	std::shared_ptr<Scene> root_scene;
 	Logger* logger;
 	AssetDatabase* assets;
 	GraphicsManager* graphics_manager;
@@ -31,6 +36,5 @@ private:
 
 	void engineLoop();
 	void cleanup();
-
 };
 

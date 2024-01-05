@@ -5,6 +5,8 @@
 #include "InputManager.h"
 #include "GraphicsManager.h"
 #include "NamedSerializable.h"
+#include "Scene.h"
+#include "RootScene.h"
 
 #include <string>
 
@@ -24,7 +26,8 @@ Engine::Engine() : bRestart(nullptr), bRunning(false)
 	assets->EarlyLoad();
 
 	graphics_manager = new GraphicsManager(assets->config.graphics_mode.getValue());
-
+	root_scene = std::static_pointer_cast<Scene>(std::make_shared<RootScene>());
+	root_scene->Initialize(root_scene);
 
 	logger->outputLog();
 }
@@ -55,6 +58,11 @@ InputManager* Engine::getInputManager()
 	return input_manager;
 }
 
+std::shared_ptr<Scene> Engine::getRootScene()
+{
+	return root_scene;
+}
+
 void Engine::run(bool* bRestart)
 {
 	if (!bRunning) {
@@ -66,10 +74,11 @@ void Engine::run(bool* bRestart)
 	}
 }
 
-void Engine::stop()
+void Engine::stop(bool restart)
 {
 	if (bRunning) {
 		bRunning = false;
+		*bRestart = restart;
 		logger->outputLog();
 	}
 }
@@ -77,7 +86,11 @@ void Engine::stop()
 void Engine::engineLoop()
 {
 	while (bRunning) {
-		logger->logMessage(SEVERE, "AAA");
+		if (root_scene) {
+			root_scene->Engine_Update();
+			root_scene->Engine_Render();
+		}
+
 		graphics_manager->loop();
 
 		logger->outputLog();

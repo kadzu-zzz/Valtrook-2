@@ -11,6 +11,8 @@
 #define GLFW_INCLUDE_VULKAN
 #include <GLFW/glfw3.h>
 
+void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
+
 GLFWWindow::GLFWWindow(WindowData data) : data(data)
 {
     GLFWmonitor* targetMonitor = NULL;
@@ -33,6 +35,10 @@ GLFWWindow::GLFWWindow(WindowData data) : data(data)
 
     window = glfwCreateWindow(data.width, data.height, data.title.c_str(), targetMonitor, nullptr);
 
+    if (window == nullptr) {
+        Engine::engine->getLogger()->logMessage(ERROR, data.title + " failed to create window context.\n");
+    }
+
     switch (Engine::engine->getAssets()->config.graphics_mode.getValue()) {
     case OpenGL:
         glfwSetKeyCallback(window, key_callback);
@@ -46,14 +52,15 @@ GLFWWindow::GLFWWindow(WindowData data) : data(data)
     }
 }
 
-static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
+void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
     Engine::engine->getInputManager()->GLFWRecieveInput(window, key, scancode, action, mods);
 }
 
 GLFWWindow::~GLFWWindow()
 {
-    Engine::engine->getGraphicsManager()->getWindowManager()->CloseWindow(data.alias);
+    if(window != NULL)
+        Engine::engine->getGraphicsManager()->getWindowManager()->CloseWindow(data.alias);
 }
 
 WindowData* GLFWWindow::getData()
@@ -63,7 +70,7 @@ WindowData* GLFWWindow::getData()
 
 bool GLFWWindow::IsValid()
 {
-    if (window == NULL)
+    if (window == nullptr)
         return false;
     return !glfwWindowShouldClose(window);
 }
