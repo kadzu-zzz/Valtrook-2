@@ -1,0 +1,47 @@
+VERT
+#version 330
+//The vertex shader operates on each vertex
+
+//input data from the VBO. Each vertex is 2 floats
+in vec3 vertexPosition;
+in vec2 vertexUV;
+in vec4 vertexColour;
+
+out vec3 fragmentPosition;
+out vec4 fragmentColour;
+out vec2 fragmentUV;
+
+uniform mat4 CameraMatrix;
+
+void main() {
+    //Set the x,y position on the screen
+    gl_Position = (CameraMatrix * vec4(vertexPosition, 1.0));
+   
+    gl_Position.w = 1.0;
+    //Indicate that the coordinates are normalized
+    
+    fragmentPosition = vertexPosition;
+    
+    fragmentColour = vertexColour;
+    
+    fragmentUV = vec2(vertexUV.x, vertexUV.y);
+}
+FRAG
+#version 330
+//The fragment shader operates on each pixel in a given polygon
+
+in vec3 fragmentPosition;
+in vec4 fragmentColour;
+in vec2 fragmentUV;
+
+//This is the 3 component float vector that gets outputted to the screen
+//for each pixel.
+out vec4 color;
+
+uniform sampler2D MainTexture;
+
+void main() {
+    vec4 textureColour = texture(MainTexture, fragmentUV);
+    
+    color = fragmentColour * textureColour;
+}
